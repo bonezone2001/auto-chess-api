@@ -17,7 +17,7 @@ const Engine = require('node-uci').Engine;
 var engine = new Engine(enginePath);
 
 async function setup() {
-  engine = new Engine('stockfish.exe');
+  engine = new Engine(enginePath);
   await engine.init();
   await engine.setoption('Hash', 2048);
   await engine.setoption('Threads', 6);
