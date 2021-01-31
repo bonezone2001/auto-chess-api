@@ -9,4 +9,10 @@ npm install
 node .
 ```
 
+If you wish to use the roblox script that uses this API
+```lua
+shared.runBind = Enum.KeyCode.B;
+loadstring(game:HttpGet('https://raw.githubusercontent.com/bonezone2001/AutoChessAPI/main/script.lua'))();
+```
+
 NOTE: Be sure the change "enginePath" to the path / name (if it's in the same path as index.js) as the engine you have and wish to use.
