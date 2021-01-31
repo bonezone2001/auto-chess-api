@@ -1,4 +1,3 @@
-
 -- Used to get chess board
 local HttpService = game:GetService("HttpService");
 local aux = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Upbolt/Hydroxide/revision/ohaux.lua"))();
@@ -36,6 +35,18 @@ end
 -- Get which player is currently playing
 function Playing() 
     return debug.getupvalue(closure, upvalueIndex)["chess"]["currentTurn"];
+end
+
+-- Get which team the local player is on
+function GetLocalTeam()
+    local list = debug.getupvalue(closure, upvalueIndex).playerList
+    if list[1] == game:GetService("Players").LocalPlayer.UserId then
+        return "w"
+    elseif list[2] == game:GetService("Players").LocalPlayer.UserId then
+        return "b"
+    else
+        return nil
+    end
 end
 
 -- Convert board to fen
@@ -107,17 +118,12 @@ function RunGame()
 end
 
 game:GetService("UserInputService").InputBegan:connect(function(inputObject, gameProcessedEvent)
-    -- Run for white
-    if (inputObject.KeyCode == Enum.KeyCode.V) then
-        print("Ran AI on white");
-        player = "w";
-        RunGame();
-    end
-    
-    -- Run for black
-    if inputObject.KeyCode == Enum.KeyCode.B then
-        print("Ran AI on black");
-        player = "b";
-        RunGame();
+    -- Run AI
+    if (inputObject.KeyCode == shared.runBind) and not gameProcessedEvent then
+        if GetLocalTeam() then
+            print("Ran AI")
+            player = GetLocalTeam()
+            RunGame()
+        end
     end
 end)
