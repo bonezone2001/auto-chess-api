@@ -9,7 +9,7 @@ npm install
 node .
 ```
 
-If you wish to use the roblox script that uses this API
+If you wish to use the roblox script that uses this API (require's a roblox exploit of some kind to run on the roblox game it was programmed to run on)
 ```lua
 shared.runBind = Enum.KeyCode.B;
 loadstring(game:HttpGet('https://raw.githubusercontent.com/bonezone2001/AutoChessAPI/main/script.lua'))();
