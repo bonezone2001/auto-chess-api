@@ -1,3 +1,8 @@
+-- Many people executing the script instead of the loader so I'll setup defaults
+if (shared.runBind == nil) then
+    shared.runBind = Enum.KeyCode.B;
+end
+
 -- Loader, check place ID and load correct script
 if game.PlaceId == 1268288957 then
     print("Loading tuning chess script!")
