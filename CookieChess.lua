@@ -19,7 +19,16 @@ if game:GetService("ReplicatedStorage").Connections:FindFirstChild("ReportClient
     end
 end
 
-local client = require(scriptPath.QuickGameSimulation).client
+local client = nil
+for _,v in pairs(getreg()) do
+    if type(v) == "function" then
+        for _, v in pairs(getupvalues(v)) do
+            if type(v) == "table" and v.processRound then
+                client = v
+            end
+        end
+    end
+end
 assert(client, "failed to find client")
 
 
