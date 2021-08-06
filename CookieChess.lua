@@ -180,9 +180,10 @@ end
 game:GetService("UserInputService").InputBegan:connect(function(inputObject, gameProcessedEvent)
     -- Run AI
     if (inputObject.KeyCode == shared.runBind) and not gameProcessedEvent then
-        if runGame()
+        if runGame() then
             print("Ran AI")
         else
             print("Cannot run AI right now")
+	end
     end
 end)
