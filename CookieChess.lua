@@ -1,6 +1,3 @@
--- Bind for executing
-shared.runBind = Enum.KeyCode.B;-- Board-finder constants
-
 local HttpService = game:GetService("HttpService")
 local plr = game:GetService("Players").LocalPlayer
 local scriptPath = plr.PlayerGui:WaitForChild("Client")
