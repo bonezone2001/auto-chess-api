@@ -1,4 +1,6 @@
--- Board-finder constants
+-- Bind for executing
+shared.runBind = Enum.KeyCode.B;-- Board-finder constants
+
 local HttpService = game:GetService("HttpService")
 local plr = game:GetService("Players").LocalPlayer
 local scriptPath = plr.PlayerGui:WaitForChild("Client")
@@ -45,6 +47,9 @@ end
 
 -- Gets client's team (white/black)
 function getLocalTeam(board)
+    if board.players[false] == plr and board.players[true] == plr then
+        return "w" 
+    end
     for i,v in pairs(board.players) do
         if v == plr then
             -- if the index is true, they are white
@@ -57,6 +62,20 @@ function getLocalTeam(board)
     end
 
     return nil
+end
+
+function willCauseDesync(board)
+    if board.players[false] == plr and board.players[true] == plr then
+        return board.activeTeam == false
+    end
+    for i,v in pairs(board.players) do
+        if v == plr then
+            -- if the index is true, they are white
+            return not (board.activeTeam == i)
+        end
+    end
+    
+    return true
 end
 
 -- Converts awful format of board table to a sensible one
@@ -117,6 +136,11 @@ end
 function runGame()
     -- Get chess board
     local board = getBoard()
+    
+    -- Check if we're able to run without desync
+    if willCauseDesync(board) then
+        return false
+    end
 
     -- Ask engine for result using fen encoded board
     local res = syn.request({
@@ -152,12 +176,16 @@ function runGame()
         board:getPiece({x1, y1}),
         {x2, y2, ["moveOnly"] = false, ["doublestep"] = 999}
     )
+    
+    return true
 end
 
 game:GetService("UserInputService").InputBegan:connect(function(inputObject, gameProcessedEvent)
     -- Run AI
     if (inputObject.KeyCode == shared.runBind) and not gameProcessedEvent then
-        print("Ran AI")
-        runGame()
+        if runGame()
+            print("Ran AI")
+        else
+            print("Cannot run AI right now")
     end
 end)
