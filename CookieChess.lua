@@ -10,7 +10,7 @@ local pieces = {
 	["King"] = "k"
 }
 
--- fuck you error logger
+-- Fuck you error logger
 if game:GetService("ReplicatedStorage").Connections:FindFirstChild("ReportClientError") then
     game:GetService("ReplicatedStorage").Connections.ReportClientError:Destroy()
     for _,v in pairs(getconnections(game:GetService("ScriptContext").Error)) do
@@ -44,12 +44,14 @@ end
 
 -- Gets client's team (white/black)
 function getLocalTeam(board)
+    -- Bot match detection
     if board.players[false] == plr and board.players[true] == plr then
-        return "w" 
+        return "w"
     end
-    for i,v in pairs(board.players) do
+    
+    for i, v in pairs(board.players) do
         if v == plr then
-            -- if the index is true, they are white
+            -- If the index is true, they are white
             if i then
                 return "w"
             else
@@ -62,12 +64,14 @@ function getLocalTeam(board)
 end
 
 function willCauseDesync(board)
+    -- Bot match detection
     if board.players[false] == plr and board.players[true] == plr then
         return board.activeTeam == false
     end
+
     for i,v in pairs(board.players) do
         if v == plr then
-            -- if the index is true, they are white
+            -- If the index is true, they are white
             return not (board.activeTeam == i)
         end
     end
@@ -165,7 +169,7 @@ function runGame()
     local y2 = tonumber(chars[4])
 
     -- Make the move
-    game.ReplicatedStorage.Connections.MovePiece:FireServer(
+    game.ReplicatedStorage.Connections.MovePiece:FireServer(board.id,
         {x1, y1},
         {x2, y2, ["moveOnly"] = false, ["doublestep"] = 999}
     )
@@ -184,6 +188,6 @@ game:GetService("UserInputService").InputBegan:connect(function(inputObject, gam
             print("Ran AI")
         else
             print("Cannot run AI right now")
-	end
+        end
     end
 end)
