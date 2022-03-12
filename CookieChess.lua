@@ -45,7 +45,12 @@ end
 
 -- Gets client's team (white/black)
 function getLocalTeam(board)
-    for i,v in pairs(board.players) do
+    -- bot match detection (wtf)
+    if board.players[false] == plr and board.players[true] == plr then
+        return "w"
+    end
+    
+    for i, v in pairs(board.players) do
         if v == plr then
             -- if the index is true, they are white
             if i then
@@ -144,7 +149,7 @@ function runGame()
     local y2 = tonumber(chars[4])
 
     -- Make the move
-    game.ReplicatedStorage.Connections.MovePiece:FireServer(
+    game.ReplicatedStorage.Connections.MovePiece:FireServer(board.id,
         {x1, y1},
         {x2, y2, ["moveOnly"] = false, ["doublestep"] = 999}
     )
