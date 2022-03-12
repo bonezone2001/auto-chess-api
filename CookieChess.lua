@@ -186,6 +186,6 @@ game:GetService("UserInputService").InputBegan:connect(function(inputObject, gam
             print("Ran AI")
         else
             print("Cannot run AI right now")
-	end
+	    end
     end
 end)
