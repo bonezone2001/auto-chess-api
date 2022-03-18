@@ -5,7 +5,7 @@ For that reason I decided to make a little api using expressjs and node-UCI. The
 
 ### Video tutorial (click image)
 
-[![Video Tutorial](https://img.youtube.com/vi/P3JAT6lrCs8/2.jpg)](https://www.youtube.com/watch?v=P3JAT6lrCs8)
+[![Video Tutorial](https://img.youtube.com/vi/P3JAT6lrCs8/0.jpg)](https://www.youtube.com/watch?v=P3JAT6lrCs8)
 
 ## How to run it?!
 ```js
